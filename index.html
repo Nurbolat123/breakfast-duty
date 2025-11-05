@@ -222,7 +222,7 @@
   const daysSinceYearStart = Math.floor((today - oneJan) / 86400000);
   const weekNumber = Math.floor(daysSinceYearStart / 7);
 
-  const targetIndex = employees.indexOf("Амина");
+  const targetIndex = employees.indexOf("Римма");
   const offset = targetIndex - (weekNumber % employees.length);
   const dutyIndex = (weekNumber + offset + employees.length) % employees.length;
   const dutyName = employees[dutyIndex];
@@ -251,3 +251,4 @@
 </script>
 </body>
 </html>
+
