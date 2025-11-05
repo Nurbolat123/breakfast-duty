@@ -218,29 +218,31 @@ const employees = [
   "Зарина", "Нұрболат", "Айзат", "Амина"
 ];
 
-// Текущая дата
-const today = new Date();
+// Получаем дату по времени Казахстана (UTC+5)
+const now = new Date();
+const today = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Almaty" }));
 
-// Номер недели с начала года
-const oneJan = new Date(today.getFullYear(), 0, 1);
-const daysSinceYearStart = Math.floor((today - oneJan) / 86400000);
-const weekNumber = Math.floor(daysSinceYearStart / 7);
+// Дата старта ротации — Римма первая
+const startDate = new Date(Date.UTC(2025, 10, 6, 0, 0, 0)); // 06.11.2025 (месяц 10 = ноябрь)
 
-// Определяем дежурного (новый каждую неделю)
+// Кол-во дней, прошедших с даты старта
+const daysPassed = Math.floor((today - startDate) / 86400000);
+const weekNumber = Math.max(0, Math.floor(daysPassed / 7));
+
+// Определяем дежурного
 const dutyName = employees[weekNumber % employees.length];
 
-// День недели: 0=вс, 4=чт, 5=пт
+// День недели по Алматы: 0=вс, 4=чт, 5=пт
 const day = today.getDay();
 const nameEl = document.getElementById("name");
 
 if (day === 4) {
-  nameEl.textContent = `Завтра дежурит ${dutyName} ☕`;
+  nameEl.textContent = `Завтра дежурит: ${dutyName} ☕`;
 } else if (day === 5) {
-  nameEl.textContent = `Сегодня дежурит ${dutyName} 🥐`;
+  nameEl.textContent = `Сегодня дежурит: ${dutyName} 🥐`;
 } else {
   nameEl.textContent = "Ждите следующей пятницы ☕🥐";
 }
-
 
   // --- Кнопка и всплывающее окно ---
   const toggleBtn = document.getElementById("toggleBtn");
@@ -255,5 +257,6 @@ if (day === 4) {
 </script>
 </body>
 </html>
+
 
 
