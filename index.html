@@ -210,33 +210,37 @@
     }
   }
 
-  // --- Список дежурных ---
-  const employees = [
-    "Амина", "Римма", "Асемгуль", "Гульдерай", "Рустем", "Аңсаған", "Жанар", "Радмила",
-    "Мақсат", "Мадина", "Ольга", "Әйгерім", "Данияр", "Бекжан",
-    "Айбарша", "Альфия", "Динара", "Марат", "Базарбай", "Александр", "Зарина", "Нұрболат", "Айзат"
-  ];
+ // --- Список дежурных ---
+const employees = [
+  "Римма", "Асемгуль", "Гульдерай", "Рустем", "Аңсаған", "Жанар", "Радмила",
+  "Мақсат", "Мадина", "Ольга", "Әйгерім", "Данияр", "Бекжан",
+  "Айбарша", "Альфия", "Динара", "Марат", "Базарбай", "Александр",
+  "Зарина", "Нұрболат", "Айзат", "Амина"
+];
 
-  const today = new Date();
-  const oneJan = new Date(today.getFullYear(), 0, 1);
-  const daysSinceYearStart = Math.floor((today - oneJan) / 86400000);
-  const weekNumber = Math.floor(daysSinceYearStart / 7);
+// Текущая дата
+const today = new Date();
 
-  const targetIndex = employees.indexOf("Римма");
-  const offset = targetIndex - (weekNumber % employees.length);
-  const dutyIndex = (weekNumber + offset + employees.length) % employees.length;
-  const dutyName = employees[dutyIndex];
+// Номер недели с начала года
+const oneJan = new Date(today.getFullYear(), 0, 1);
+const daysSinceYearStart = Math.floor((today - oneJan) / 86400000);
+const weekNumber = Math.floor(daysSinceYearStart / 7);
 
-  const day = today.getDay(); // 0=вс, 4=чт, 5=пт
-  const nameEl = document.getElementById("name");
+// Определяем дежурного (новый каждую неделю)
+const dutyName = employees[weekNumber % employees.length];
 
-  if (day === 4) {
-    nameEl.textContent = `Завтра дежурит ${dutyName} ☕`;
-  } else if (day === 5) {
-    nameEl.textContent = `Сегодня дежурит ${dutyName} 🥐`;
-  } else {
-    nameEl.textContent = "Ждите следующей пятницы ☕🥐";
-  }
+// День недели: 0=вс, 4=чт, 5=пт
+const day = today.getDay();
+const nameEl = document.getElementById("name");
+
+if (day === 4) {
+  nameEl.textContent = `Завтра дежурит ${dutyName} ☕`;
+} else if (day === 5) {
+  nameEl.textContent = `Сегодня дежурит ${dutyName} 🥐`;
+} else {
+  nameEl.textContent = "Ждите следующей пятницы ☕🥐";
+}
+
 
   // --- Кнопка и всплывающее окно ---
   const toggleBtn = document.getElementById("toggleBtn");
@@ -251,4 +255,5 @@
 </script>
 </body>
 </html>
+
 
