@@ -218,22 +218,23 @@ const employees = [
   "Роза", "Жамель", "Гульдерай", "Рустем", "Аңсаған", "Жанар", "Радмила", "Арман"
 ];
 
-// Получаем дату по времени Казахстана (UTC+5)
-const now = new Date();
-const today = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Almaty" }));
+// Время Алматы
+const today = new Date(new Date().toLocaleString("en-US", {
+  timeZone: "Asia/Almaty"
+}));
 
-// Якорная дата — 8 января 2026, дежурит Арман
-const startDate = new Date(Date.UTC(2026, 0, 8, 0, 0, 0)); // 08.01.2026
-	
-// Кол-во дней, прошедших с даты старта
-const daysPassed = Math.floor((today - startDate) / 86400000);
-const weekNumber = Math.max(0, Math.floor(daysPassed / 7));
+// Якорь: четверг 8 января 2026 — Мадина
+const startDate = new Date(2026, 0, 8);
 
-// Определяем дежурного
-const dutyName = employees[weekNumber % employees.length];
+// Разница в днях
+const diffDays = Math.floor((today - startDate) / 86400000);
 
-// День недели по Алматы: 0=вс, 4=чт, 5=пт
-const day = today.getDay();
+// Номер недели (строго от четверга)
+const weekNumber = Math.floor(diffDays / 7);
+const dutyName = employees[(weekNumber + employees.length) % employees.length];
+
+// День недели
+const day = today.getDay(); // 4 = чт, 5 = пт
 const nameEl = document.getElementById("name");
 
 if (day === 4) {
@@ -257,6 +258,7 @@ if (day === 4) {
 </script>
 </body>
 </html>
+
 
 
 
