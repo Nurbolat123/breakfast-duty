@@ -218,24 +218,24 @@ const employees = [
   "Роза", "Жамель", "Гульдерай", "Рустем", "Аңсаған", "Жанар", "Радмила", "Арман"
 ];
 
-	// Сегодня по Алматы БЕЗ времени
+	// Сегодня по Алматы (без времени)
 const today = new Date(
   new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Almaty" })
 );
 
-// Якорный ЧЕТВЕРГ — 8 января 2026 (Мадина)
-const startDate = new Date("2026-01-08");
+// 🔥 ЯКОРЬ: ЧЕТВЕРГ 15.01.2026 — Мадина
+const startThursday = new Date("2026-01-15");
 
-// Разница в днях
-const diffDays = Math.floor((today - startDate) / 86400000);
+// Сколько дней прошло
+const diffDays = Math.floor((today - startThursday) / 86400000);
 
-// Номер недели
+// Номер недели от четверга
 const weekNumber = Math.floor(diffDays / 7);
 
 // Дежурный
 const dutyName = employees[(weekNumber + employees.length) % employees.length];
 
-// День недели
+// День недели (Алматы)
 const day = today.getDay(); // 4 = чт, 5 = пт
 const nameEl = document.getElementById("name");
 
@@ -260,6 +260,7 @@ if (day === 4) {
 </script>
 </body>
 </html>
+
 
 
 
